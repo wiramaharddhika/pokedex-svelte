@@ -1,15 +1,21 @@
-import axios from 'axios';
-import { API_URL } from 'constants/api.constant';
+import axios from 'axios'
+import { API_URL } from 'constants/api.constant'
+import { mapPokemonDetail } from './map.util'
 
-export const fetchPokemonList = async () => {
-  const pokemonListResponse = await axios.get(API_URL);
-  const pokemonList = pokemonListResponse.data.results  
-  const pokemonDetailFetchList = pokemonList.map((pokemon) =>
-    axios.get(pokemon.url)
-  )
-  const pokemonDetailListResponse = await Promise.all(pokemonDetailFetchList)
-  const pokemonDetailList = pokemonDetailListResponse.map(
-    (pokemonDetailResponse) => pokemonDetailResponse.data
-  )
-  return pokemonDetailList;
+export const fetchPokemonUrlList = async (page) => {
+  const limit = 12
+  const offset = (page - 1) * limit
+  const response = await axios.get(`${API_URL}?offset=${offset}&limit=${limit}`)
+  const pokemonList = response.data.results  
+  return pokemonList.map((pokemon) => pokemon.url)
+}
+
+export const fetchPokemonByUrl = async (url) => {
+  const response = await axios.get(url)
+  return mapPokemonDetail(response.data)
+}
+
+export const fetchPokemonDetail = async (idOrName) => {
+  const response = await axios.get(`${API_URL}/${idOrName}`)
+  return mapPokemonDetail(response.data)
 }

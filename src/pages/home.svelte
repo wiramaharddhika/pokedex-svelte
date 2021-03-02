@@ -1,25 +1,37 @@
 <script>
   import { onMount } from 'svelte'
   import { Link } from 'svelte-routing'
-  import Card from 'components/card.svelte'
-  import { fetchPokemonList } from 'utils/api.util'
+  import InfiniteScroll from 'svelte-infinite-scroll'
+  import InfiniteLoading from 'svelte-infinite-loading'
+  import PokemonCard from 'components/pokemon-card.svelte'
+  import { fetchPokemonUrlList } from 'utils/api.util'
 
-  let pokemonList = []
+  let pokemonUrlList = []
+  let page = 1
 
-  onMount(async () => {
-    pokemonList = await fetchPokemonList()
+  onMount(() => {
+    loadPokemonUrlList()
   })
+
+  const loadPokemonUrlList = async () => {
+    const newPokemonUrlList = await fetchPokemonUrlList(page)
+    pokemonUrlList = pokemonUrlList.concat(newPokemonUrlList)
+    page++
+  }
+
+  const onInfinite = async ({ detail: { loaded } }) => {
+    await loadPokemonUrlList()
+    loaded()
+  }
 </script>
 
-<div class="container mx-auto px-4">
-  {#each pokemonList as pokemon}
-    <Link>
-      <Card
-        id={pokemon.id}
-        name={pokemon.name}
-        imageUrl={pokemon.sprites.other.dream_world.front_default}
-        types={pokemon.types.map((type) => type.type.name)}
-      />
-    </Link>
-  {/each}
+<div class="Home container p-4">
+  <ul class="grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+    {#each pokemonUrlList as url}
+      <li>
+        <PokemonCard {url} />
+      </li>
+    {/each}
+    <InfiniteLoading on:infinite={onInfinite} />
+  </ul>
 </div>

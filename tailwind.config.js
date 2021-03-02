@@ -17,4 +17,18 @@ module.exports = {
     },
     enabled: isProduction // disable purge in dev
   },
+  plugins: [
+    require('tailwindcss-textshadow')
+  ],
+  theme: {
+    container: {
+      screens: {
+        sm: '576px',
+        md: '740px',
+        lg: '992px',
+        xl: '1140px',
+      },
+      center: true,
+    }
+  }
 };

@@ -57,6 +57,10 @@ export default {
         { 
           find: 'constants',
           replacement: path.resolve(__dirname, 'src/constants')
+        },
+        { 
+          find: 'images',
+          replacement: path.resolve(__dirname, 'src/images')
         }
       ]
     }),
