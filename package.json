@@ -34,10 +34,8 @@
     "axios": "^0.21.1",
     "fast-average-color": "^6.3.0",
     "sirv-cli": "^1.0.0",
-    "storm-adaptive-background": "^0.3.0",
     "svelte-chartjs": "^1.0.1",
     "svelte-infinite-loading": "^1.3.5",
-    "svelte-infinite-scroll": "^1.5.2",
     "svelte-routing": "^1.5.0"
   }
 }

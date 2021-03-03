@@ -1,12 +1,12 @@
-import path from 'path';
+import path from 'path'
 import svelte from 'rollup-plugin-svelte'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import alias from '@rollup/plugin-alias';
+import alias from '@rollup/plugin-alias'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import css from 'rollup-plugin-css-only'
-import sveltePreprocess from "svelte-preprocess"
+import sveltePreprocess from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -46,23 +46,23 @@ export default {
   plugins: [
     alias({
       entries: [
-        { 
+        {
           find: 'components',
-          replacement: path.resolve(__dirname, 'src/components')
+          replacement: path.resolve(__dirname, 'src/components'),
         },
-        { 
+        {
           find: 'utils',
-          replacement: path.resolve(__dirname, 'src/utils')
+          replacement: path.resolve(__dirname, 'src/utils'),
         },
-        { 
+        {
           find: 'constants',
-          replacement: path.resolve(__dirname, 'src/constants')
+          replacement: path.resolve(__dirname, 'src/constants'),
         },
-        { 
-          find: 'images',
-          replacement: path.resolve(__dirname, 'src/images')
-        }
-      ]
+        {
+          find: 'stores',
+          replacement: path.resolve(__dirname, 'src/stores'),
+        },
+      ],
     }),
     svelte({
       compilerOptions: {
@@ -74,9 +74,9 @@ export default {
         sourceMap: !production,
         postcss: {
           plugins: [
-             require("tailwindcss"), 
-             require("autoprefixer"),
-             require("postcss-nesting")
+            require('tailwindcss'),
+            require('autoprefixer'),
+            require('postcss-nesting'),
           ],
         },
       }),

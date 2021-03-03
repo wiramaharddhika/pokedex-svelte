@@ -1,16 +1,22 @@
 <script>
   import { onMount } from 'svelte'
   import FastAverageColor from 'fast-average-color'
+  import { pokemonList } from 'stores/pokemon.store'
   import PokemonTypeBadge from './pokemon-type-badge.svelte'
-  import { fetchPokemonByUrl } from 'utils/api.util'
+  import { fetchPokemonDetail } from 'utils/api.util'
 
-  export let url
+  export let id
 
   let pokemon
   let style
 
   onMount(async () => {
-    pokemon = await fetchPokemonByUrl(url)
+    if (!$pokemonList[id]) {
+      pokemon = await fetchPokemonDetail(id)
+      pokemonList.update((list) => ({ ...list, [id]: pokemon }))
+    } else {
+      pokemon = $pokemonList[id]
+    }
   })
 
   const onImageLoad = () => {

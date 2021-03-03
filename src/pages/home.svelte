@@ -1,35 +1,28 @@
 <script>
-  import { onMount } from 'svelte'
   import { Link } from 'svelte-routing'
-  import InfiniteScroll from 'svelte-infinite-scroll'
   import InfiniteLoading from 'svelte-infinite-loading'
   import PokemonCard from 'components/pokemon-card.svelte'
-  import { fetchPokemonUrlList } from 'utils/api.util'
 
-  let pokemonUrlList = []
-  let page = 1
+  const MAX = 898
+  let total = 12
 
-  onMount(() => {
-    loadPokemonUrlList()
-  })
-
-  const loadPokemonUrlList = async () => {
-    const newPokemonUrlList = await fetchPokemonUrlList(page)
-    pokemonUrlList = pokemonUrlList.concat(newPokemonUrlList)
-    page++
-  }
-
-  const onInfinite = async ({ detail: { loaded } }) => {
-    await loadPokemonUrlList()
-    loaded()
+  const onInfinite = async ({ detail: { loaded, completed } }) => {
+    if (total < MAX) {
+      total = total + 12 > MAX ? MAX : total + 12
+      loaded()
+    } else {
+      completed()
+    }
   }
 </script>
 
 <div class="Home container p-4">
   <ul class="grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-    {#each pokemonUrlList as url}
+    {#each [...Array(total).keys()] as id}
       <li>
-        <PokemonCard {url} />
+        <Link to={`/${id + 1}`}>
+          <PokemonCard id={id + 1} />
+        </Link>
       </li>
     {/each}
     <InfiniteLoading on:infinite={onInfinite} />
