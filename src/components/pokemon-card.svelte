@@ -5,17 +5,24 @@
   import PokemonTypeBadge from './pokemon-type-badge.svelte'
   import { fetchPokemonDetail } from 'utils/api.util'
 
-  export let id
+  export let idOrName
 
   let pokemon
   let style
 
   onMount(async () => {
-    if (!$pokemonList[id]) {
-      pokemon = await fetchPokemonDetail(id)
-      pokemonList.update((list) => ({ ...list, [id]: pokemon }))
+    if (!$pokemonList[idOrName]) {
+      pokemon = await fetchPokemonDetail(idOrName)
+
+      const id = Number(pokemon.id)
+      const name = pokemon.name
+      pokemonList.update((list) => ({
+        ...list,
+        [id]: pokemon,
+        [name]: pokemon,
+      }))
     } else {
-      pokemon = $pokemonList[id]
+      pokemon = $pokemonList[idOrName]
     }
   })
 

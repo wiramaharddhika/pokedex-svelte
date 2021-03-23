@@ -5,8 +5,8 @@
 </script>
 
 <Router>
-  <Route path="/:id" let:params>
-    <Detail id={params.id} />
+  <Route path="/:idOrName" let:params>
+    <Detail idOrName={params.idOrName} />
   </Route>
   <Route path="/">
     <Home />

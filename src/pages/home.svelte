@@ -17,11 +17,16 @@
 </script>
 
 <div class="Home container p-4">
-  <ul class="grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+  <img
+    class="Home-logo w-auto h-48 mx-auto mt-8 mb-12"
+    src="/images/pokemon-logo.png"
+    alt="pokemon-logo"
+  />
+  <ul class="Home-list grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
     {#each [...Array(total).keys()] as id}
       <li>
         <Link to={`/${id + 1}`}>
-          <PokemonCard id={id + 1} />
+          <PokemonCard idOrName={id + 1} />
         </Link>
       </li>
     {/each}
