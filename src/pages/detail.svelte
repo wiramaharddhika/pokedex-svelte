@@ -4,6 +4,7 @@
   import { Radar } from 'svelte-chartjs'
   import { pokemonList } from 'stores/pokemon.store'
   import PokemonCard from 'components/pokemon-card.svelte'
+  import PokemonTypeBadge from 'components/pokemon-type-badge.svelte'
   import {
     fetchPokemonDetail,
     fetchPokemonEvolutionChain,
@@ -38,10 +39,10 @@
         max: 100,
         stepSize: 25,
       },
-      angleLines: { color: 'rgba(255, 255, 255, 0.2)' },
-      gridLines: { color: 'rgba(255, 255, 255, 0.2)' },
+      angleLines: { color: 'rgba(255, 255, 255, 0.8)' },
+      gridLines: { color: 'rgba(255, 255, 255, 0.8)' },
       pointLabels: {
-        fontColor: 'rgba(255, 255, 255, 0.5)',
+        fontColor: 'rgba(255, 255, 255, 0.8)',
         fontSize: '10',
       },
     },
@@ -77,23 +78,49 @@
 </script>
 
 {#if !!pokemon}
-  <div class="Detail min-h-screen" {style}>
+  <div class="Detail min-h-screen md:py-16" {style}>
     <div class="container p-4">
-      <div class="flex justify-center">
-        <div class="Detail-name capitalize">{pokemon.name}</div>
-        <div class="Detail-id">#{pokemon.id}</div>
-      </div>
-      <div class="relative mb-16">
+      <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-16">
         <div>
+          <div
+            class="Detail-name capitalize text-5xl font-semibold text-white text-shadow"
+          >
+            {pokemon.name}
+          </div>
+          <div class="mt-32 relative">
+            <div class="Detail-ability capitalize text-white text-shadow">
+              <span class="font-semibold">Ability: </span>{pokemon.abilities[0]}
+            </div>
+            <div class="Detail-size ml-24">
+              <div class="text-white text-shadow">
+                <span class="font-semibold">Height: </span>{pokemon.height}m
+              </div>
+              <div class="text-white text-shadow">
+                <span class="font-semibold">Weight: </span>{pokemon.weight}kg
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
           <img
-            class="Detail-image w-9/12 max-w-lg"
+            class="Detail-image w-full"
             on:load={onImageLoad}
             crossOrigin="anonymous"
             src={pokemon.image}
             alt="pokemon"
           />
+          <div
+            class="Detail-id absolute bottom-0 left-0 text-white text-7xl font-bold opacity-70"
+          >
+            #{pokemon.id}
+          </div>
         </div>
-        <div class="absolute top-0 left-14 sm:left-32 z-0 w-full max-w-xl">
+        <div>
+          <div class="flex justify-start my-12">
+            {#each pokemon.types as type}
+              <PokemonTypeBadge {type} size={16} />
+            {/each}
+          </div>
           {#if !!radarData}
             <Radar data={radarData} options={radarOptions} />
           {/if}
@@ -126,5 +153,12 @@
     background-color: rgba(0, 0, 0, 0.1);
     width: min-content;
     margin: 0 auto;
+  }
+
+  .Detail-ability {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: rotate(-90deg) translate(40%, -200%);
   }
 </style>

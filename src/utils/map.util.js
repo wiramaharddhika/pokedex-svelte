@@ -11,7 +11,7 @@ export const mapPokemonDetail = (pokemon) => {
     abilities: pokemon.abilities.map((ability) =>
       ability.ability.name.split('-').join(' ')
     ),
-    height: pokemon.height,
-    width: pokemon.width,
+    height: pokemon.height/10,
+    weight: pokemon.weight/10,
   }
 }
