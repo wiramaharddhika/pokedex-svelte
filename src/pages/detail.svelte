@@ -16,13 +16,11 @@
   let style
 
   $: radarData = pokemon && {
-    labels: pokemon.stats.map((stat) =>
-      stat.name.toUpperCase().split('-').join(' ')
-    ),
+    labels: pokemon.stats.map((stat) => stat.name.toUpperCase()),
     datasets: [
       {
-        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-        borderColor: 'rgba(255, 255, 255, 0.3)',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        borderColor: 'rgba(255, 255, 255, 0.6)',
         borderWidth: '1',
         pointRadius: '2',
         data: pokemon.stats.map((stat) => stat.value),
@@ -39,17 +37,18 @@
         max: 100,
         stepSize: 25,
       },
-      angleLines: { color: 'rgba(255, 255, 255, 0.8)' },
-      gridLines: { color: 'rgba(255, 255, 255, 0.8)' },
+      angleLines: { color: 'rgba(255, 255, 255, 0.6)' },
+      gridLines: { color: 'rgba(255, 255, 255, 0.6)' },
       pointLabels: {
-        fontColor: 'rgba(255, 255, 255, 0.8)',
-        fontSize: '10',
+        fontColor: 'rgba(255, 255, 255, 0.6)',
+        fontSize: '14',
       },
     },
-    responsive: true,
   }
 
   onMount(async () => {
+    window.scrollTo(0, 0)
+
     if (!$pokemonList[idOrName]) {
       pokemon = await fetchPokemonDetail(idOrName)
     } else {
@@ -116,14 +115,21 @@
           </div>
         </div>
         <div>
-          <div class="flex justify-start my-12">
+          <div class="flex justify-center mt-12">
+            {#if !!radarData}
+              <Radar
+                data={radarData}
+                options={radarOptions}
+                width={400}
+                height={400}
+              />
+            {/if}
+          </div>
+          <div class="flex justify-start">
             {#each pokemon.types as type}
               <PokemonTypeBadge {type} size={16} />
             {/each}
           </div>
-          {#if !!radarData}
-            <Radar data={radarData} options={radarOptions} />
-          {/if}
         </div>
       </div>
       {#if !!pokemon.evolutionChain}

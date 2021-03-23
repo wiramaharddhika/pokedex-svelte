@@ -4,10 +4,21 @@ export const mapPokemonDetail = (pokemon) => {
     name: pokemon.name,
     image: pokemon.sprites.other.dream_world.front_default,
     types: pokemon.types.map((type) => type.type.name),
-    stats: pokemon.stats.map((stat) => ({
-      name: stat.stat.name,
-      value: stat.base_stat,
-    })),
+    stats: pokemon.stats.map((stat) => {
+      const nameMap = {
+        'hp': 'hp',
+        'attack': 'att',
+        'defense': 'def',
+        'speed': 'spd',
+        ['special-attack']: 'sp. att',
+        ['special-defense']: 'sp. def'
+      };
+
+      return {
+        name: nameMap[stat.stat.name],
+        value: stat.base_stat,
+      }
+    }),
     abilities: pokemon.abilities.map((ability) =>
       ability.ability.name.split('-').join(' ')
     ),
