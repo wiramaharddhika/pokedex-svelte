@@ -34,7 +34,7 @@
   }
 </script>
 
-<div class="PokemonCard rounded-md shadow-md" {style}>
+<div class="PokemonCard rounded-md shadow-md overflow-hidden" {style}>
   {#if !!pokemon}
     <div class="relative p-4">
       <h3
@@ -62,12 +62,10 @@
       </div>
     </div>
   {:else}
-    <div class="p-4">
-      <img
-        class="Pokemon-loading h-48"
-        src="images/loading.gif"
-        alt="loading"
-      />
-    </div>
+    <img
+      class="Pokemon-loading h-72 w-auto object-cover"
+      src="images/loading.gif"
+      alt="loading"
+    />
   {/if}
 </div>
