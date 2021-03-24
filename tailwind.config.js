@@ -16,7 +16,7 @@ module.exports = {
       const matches = broadMatches.concat(broadMatchesWithoutTrailingSlash)
       return matches
     },
-    enabled: isProduction, // disable purge in dev
+    // enabled: isProduction, // disable purge in dev
   },
   plugins: [require('tailwindcss-textshadow')],
   theme: {
