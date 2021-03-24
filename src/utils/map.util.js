@@ -6,13 +6,13 @@ export const mapPokemonDetail = (pokemon) => {
     types: pokemon.types.map((type) => type.type.name),
     stats: pokemon.stats.map((stat) => {
       const nameMap = {
-        'hp': 'hp',
-        'attack': 'att',
-        'defense': 'def',
-        'speed': 'spd',
+        hp: 'hp',
+        attack: 'att',
+        defense: 'def',
+        speed: 'spd',
         ['special-attack']: 'sp. att',
-        ['special-defense']: 'sp. def'
-      };
+        ['special-defense']: 'sp. def',
+      }
 
       return {
         name: nameMap[stat.stat.name],
@@ -22,7 +22,7 @@ export const mapPokemonDetail = (pokemon) => {
     abilities: pokemon.abilities.map((ability) =>
       ability.ability.name.split('-').join(' ')
     ),
-    height: pokemon.height/10,
-    weight: pokemon.weight/10,
+    height: pokemon.height / 10,
+    weight: pokemon.weight / 10,
   }
 }
