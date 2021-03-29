@@ -34,13 +34,13 @@
       ticks: {
         display: false,
         beginAtZero: true,
-        max: 100,
-        stepSize: 25,
+        max: 256,
+        stepSize: 64,
       },
       angleLines: { color: 'rgba(255, 255, 255, 0.6)' },
-      gridLines: { color: 'rgba(255, 255, 255, 0.6)' },
+      gridLines: { color: 'rgba(255, 255, 255, 0.8)' },
       pointLabels: {
-        fontColor: 'rgba(255, 255, 255, 0.6)',
+        fontColor: 'rgba(255, 255, 255, 0.8)',
         fontSize: '14',
       },
     },
