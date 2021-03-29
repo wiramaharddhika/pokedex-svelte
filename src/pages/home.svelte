@@ -2,6 +2,7 @@
   import { Link } from 'svelte-routing'
   import InfiniteLoading from 'svelte-infinite-loading'
   import PokemonCard from 'components/pokemon-card.svelte'
+  import PokemonInput from '../components/pokemon-input.svelte'
 
   const MAX = 898
   let total = 12
@@ -22,11 +23,14 @@
     src="/images/pokemon-logo.png"
     alt="pokemon-logo"
   />
+
+  <PokemonInput />
+
   <ul class="Home-list grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-    {#each [...Array(total).keys()] as id}
+    {#each [...Array(total).keys()] as number}
       <li>
-        <Link to={`/${id + 1}`}>
-          <PokemonCard idOrName={id + 1} />
+        <Link to={`/${number + 1}`}>
+          <PokemonCard idOrName={number + 1} />
         </Link>
       </li>
     {/each}
