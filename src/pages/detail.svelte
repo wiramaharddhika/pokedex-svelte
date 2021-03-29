@@ -116,7 +116,7 @@
         </div>
         <div>
           <div class="flex justify-center mt-12">
-            {#if !!radarData}
+            {#if !!pokemon.evolutionChain && !!radarData}
               <Radar
                 data={radarData}
                 options={radarOptions}
