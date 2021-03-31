@@ -12,7 +12,7 @@
       idOrName = idOrName.toLowerCase()
     }
 
-    if ($pokemonList[idOrName]) {
+    if (!!$pokemonList[idOrName]) {
       navigateToDetailPage()
     }
 

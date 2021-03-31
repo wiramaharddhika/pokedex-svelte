@@ -57,15 +57,15 @@
 
     if (!pokemon.evolutionChain) {
       pokemon.evolutionChain = await fetchPokemonEvolutionChain(idOrName)
-
-      const id = Number(pokemon.id)
-      const name = pokemon.name
-      pokemonList.update((list) => ({
-        ...list,
-        [id]: pokemon,
-        [name]: pokemon,
-      }))
     }
+
+    const id = Number(pokemon.id)
+    const name = pokemon.name
+    pokemonList.update((list) => ({
+      ...list,
+      [id]: pokemon,
+      [name]: pokemon,
+    }))
   })
 
   const onImageLoad = () => {

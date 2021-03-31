@@ -10,8 +10,8 @@ export const mapPokemonDetail = (pokemon) => {
         attack: 'att',
         defense: 'def',
         speed: 'spd',
-        ['special-attack']: 'sp. att',
-        ['special-defense']: 'sp. def',
+        'special-attack': 'sp. att',
+        'special-defense': 'sp. def',
       }
 
       return {

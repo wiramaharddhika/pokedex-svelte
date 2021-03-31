@@ -2,7 +2,7 @@
   import { Link } from 'svelte-routing'
   import InfiniteLoading from 'svelte-infinite-loading'
   import PokemonCard from 'components/pokemon-card.svelte'
-  import PokemonInput from '../components/pokemon-input.svelte'
+  import PokemonInput from 'components/pokemon-input.svelte'
 
   const MAX = 898
   let total = 12
